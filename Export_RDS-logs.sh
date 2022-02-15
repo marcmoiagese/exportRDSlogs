@@ -4,6 +4,7 @@ PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/.local/
 
 DESTI="path_to_store_logs"
 INSTANCE="instancia"
+client=""
 
 if [ -n "$1" ];
 then
@@ -28,7 +29,7 @@ elif [ -n "${LOGFILE}" ] && [ -n "${LOGFILE2}" ];
 then
   #Downloading rank of logs
   mkdir "$DESTI$CURDAT"
-  for i in $(/root/.local/bin/aws rds describe-db-log-files --db-instance-identifier ${INSTANCE} --profile quantum --output text | awk '{print $3}') ; 
+  for i in $(/root/.local/bin/aws rds describe-db-log-files --db-instance-identifier ${INSTANCE} --profile ${client} --output text | awk '{print $3}') ; 
   do
         NETEJAT=${i##*.};       # Removing all data except data
         NET=${NETEJAT::-3};     # Removing time and last -
